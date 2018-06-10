@@ -30,11 +30,17 @@ namespace QnASample20180610
             {
                 options.CredentialProvider = new ConfigurationCredentialProvider(Configuration);
 
+                // Host・EndpointKey・KnowledgeBaseIDはappsettings.Development.jsonファイルに記述。無い場合は追加
+                var host = Configuration.GetSection("QnAMaker-Host")?.Value;
+                var endpointKey = Configuration.GetSection("QnAMaker-EndpointKey").Value;
+                var knowledgeBaseId = Configuration.GetSection("QnAMaker-KnowledgeBaseId").Value;
+
                 var qnaEndpoint = new QnAMakerEndpoint
                 {
                     // add subscription key and knowledge base id
-                    EndpointKey = "xxxxxx",
-                    KnowledgeBaseId = "xxxxxx"
+                    Host = host,
+                    EndpointKey = endpointKey,
+                    KnowledgeBaseId = knowledgeBaseId
                 };
 
                 var middleware = options.Middleware;
